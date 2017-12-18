@@ -12,7 +12,7 @@ router.use('/addGrouping', function(req, res, next){
     groupingService.addGrouping(userId, groupingName, function(err, result){
         if(err){
             log.error('routes.grouping.addGrouping:' + err);
-            res.json({code: '001',msg: '分组添加失败!!'});
+            res.json({code: '001',msg: '分组添加失败!'});
         }else{
             res.json({code: '000', msg: '添加成功'});
         }
