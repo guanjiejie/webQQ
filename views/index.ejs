@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <!--socket.io-->
+  <script type="text/javascript" src="https://cdn.bootcss.com/socket.io/2.0.4/socket.io.js"></script>
+</head>
+<body>
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+<button onclick="a()">按钮</button>
+<ul id="ultext">
+
+</ul>
+</body>
+
+<script type="text/javascript">
+  var socket = io();
+  function a(){
+    socket.emit('click1');
+  }
+
+  //监听click2事件
+  socket.on('click2', function(data){
+    var htmldatas = data.datas;
+    var html = '';
+    for (var i = 0; i < htmldatas.length; i++) {
+      var htmldata = htmldatas[i];
+      html += '<li>'+htmldata+'</li>';
+    }
+    document.getElementById('ultext').innerHTML = html;
+  })
+</script>
+</html>

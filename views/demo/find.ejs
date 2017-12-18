@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查找</title>
+    <script src="/js/jquery-3.2.0.min.js"></script>
+    <script src="/layui/lay/modules/layer.js"></script>
+</head>
+<body>
+<label>用户ID:</label><input id="id" type="text" ><button onclick="find()">查找</button><br/>
+<ul id="list">
+
+</ul>
+<script>
+    function find(){
+        $.post(
+                "/users/find",
+                {
+                    id: $("#id").val()
+                },function(data){
+                    if(data.code == "000"){
+                        for(var i = 0; i < data.list.length;i++){
+                            $("#list").append('<li data-id = "' + data.list[i].id +  '">'+ data.list[i].id + ':'+ data.list[i].nickname + '<button onclick = "addFriend(this)">添加好友</button>'+ '</li>');
+                        }
+                    }
+                }
+        )
+
+    }
+    function addFriend(e){
+        var id = $(e).parent().attr('data-id');
+        $.post(
+                "/users/addFriend",
+                {
+                    toid: id
+                }, function(data){
+                    if(data.code == '000'){
+                        //layer.alert('好友请求已发送！');
+                        alert("请求已发送");
+                    }else{
+                        layer.alert("发送失败！");
+                    }
+                }
+        );
+    }
+</script>
+</body>
+</html>

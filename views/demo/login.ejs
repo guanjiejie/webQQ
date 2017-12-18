@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="/js/jquery-3.2.0.min.js"></script>
+    <script src="/layui/lay/modules/layer.js"></script>
+    <style>
+        *{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div >
+    <label>账号：</label><input id="id" type="text" name="id" value="10001"><br/>
+    <label>密码：</label><input id="password" type="password" name="password" value="123456"><br/>
+    <button onclick="login()">登录</button>
+</div>
+<script>
+    function login() {
+        $.post(
+                '/login/login',
+                {
+                    id: $("#id").val(),
+                    password: $("#password").val()
+                }, function (data) {
+                    console.log();
+                    if(data.code != '000'){
+                        layer.alert(data.msg);
+                    }else{
+                        window.location.href = '/';
+                    }
+                }
+        );
+    }
+</script>
+</body>
+</html>

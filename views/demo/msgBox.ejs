@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-3.2.0.min.js"></script>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul id="list">
+        <li v-for="item in msgList" v-bind:data-id="item.id">
+            <div><label>{{item.nickname}}</label>申请添加好友</div>
+
+            <div v-if="item.isRead != 0"><button style="margin-right: 20px;" disabled>同意</button><button disabled>拒绝</button></div>
+            <div v-else><button v-on:click="handle(item.id, true)" style="margin-right: 20px;">同意</button><button v-on:click="handle(item.id, false)">拒绝</button></div>
+        </li>
+    </ul>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data:{
+            msgList: [],
+        },
+        methods:{
+            init: function(){
+                var _this = this;
+                $.post(
+                        "/msg/list",
+                        {},
+                        function(data){
+                            _this.msgList = data.list;
+                        }
+                );
+            },
+            handle: function(msgId, isAgree){
+                var _this = this;
+                $.post(
+                        "/msg/handle",
+                        {
+                            msgId: msgId,
+                            isAgree: isAgree
+                        }, function(data){
+                            if(data.code == '000'){
+                                alert('添加成功');
+                            }else{
+                                alert(data.msg);
+                            }
+                        }
+                );
+            }
+        }
+    });
+
+    $(function(){
+        app.init();
+    });
+
+</script>
+
+</body>
+</html>
