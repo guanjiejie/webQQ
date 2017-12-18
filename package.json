@@ -16,7 +16,6 @@
     "mysql": "latest",
     "log4js": "2.4.1",
     "express-session": "1.15.6",
-    "log4js": "2.4.1",
     "socket.io": "2.0"
   }
 }
