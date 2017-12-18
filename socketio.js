@@ -50,6 +50,9 @@ socketio.getSocketio = function(server){
             });
         socket.on("register", function(id){
             user[id] = socket.id;
+            //1、查询该用户未读信息 2、发送给用户
+
+
         });
     });
 
