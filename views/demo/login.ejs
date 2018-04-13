@@ -29,7 +29,7 @@
                     if(data.code != '000'){
                         layer.alert(data.msg);
                     }else{
-                        window.location.href = '/';
+                        window.location.href = '/?id=' + data.id;
                     }
                 }
         );
