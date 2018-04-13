@@ -65,7 +65,7 @@ router.use('/login', function (req, res, next) {
             }
             connection.release();
             //res.redirect('/?id=' + id);
-            res.json({code: '000', msg: '登录成功'});
+            res.json({code: '000', msg: '登录成功', id: id});
         }
     });
 });
