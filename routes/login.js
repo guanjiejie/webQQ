@@ -30,13 +30,12 @@ router.get('/addUser', function (req, res, next) {
             result = '添加成功';
         }
         responseJSON(res, result);
-        connection.release();
     })
 });
 
 router.use('/login', function (req, res, next) {
     var param = req.query || req.params;
-    var id = req.body.id;
+    var id = req.body.id; 
     var password = req.body.password;
     if (typeof id === 'undefined' || id === '') {
         res.send({code: '001', msg: '请输入账号'});
@@ -55,7 +54,6 @@ router.use('/login', function (req, res, next) {
         if (result.length == 0) {
             result = "账号或密码错误";
             res.json({code: '001', msg: '账号或密码错误'});
-            connection.release();
         } else {
             req.session.isLogin = true;
             req.session.userId = id;
@@ -63,7 +61,6 @@ router.use('/login', function (req, res, next) {
             for (var r in result) {
                 delete r.password;
             }
-            connection.release();
             //res.redirect('/?id=' + id);
             res.json({code: '000', msg: '登录成功', id: id});
         }
